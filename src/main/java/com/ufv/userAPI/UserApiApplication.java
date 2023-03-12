@@ -7,6 +7,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class UserApiApplication {
 
 	public static void main(String[] args) {
+		Cliente c= new Cliente();
+
 		SpringApplication.run(UserApiApplication.class, args);
 	}
 
