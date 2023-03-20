@@ -15,8 +15,8 @@ public class Http_Controller {
     JSON_Methods jm= new JSON_Methods();
 
     @GetMapping(value = "/Clientes")
-    public ArrayList<Cliente> mostrar() {
-        return jm.devolverClientes("clientes.json");
+    public ArrayList<Cliente> mostrar() throws NoSuchMethodException {
+        return jm.get("clientes.json", Cliente.class);
     }
 
     @PostMapping(value = "/Clientes", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
