@@ -4,9 +4,11 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import java.io.*;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Locale;
 
 public class JSON_Methods {
     //Metodo GET
@@ -21,7 +23,7 @@ public class JSON_Methods {
             Collection<Cliente> Cliente_Collection = gson.fromJson(br, collectionType);
 
             for(Cliente c: Cliente_Collection){
-                Cliente c1= new Cliente(c.Id_Cliente, c.Id_Direccion, c.Nombre_Cliente, c.Apellido_Cliente, c.Fecha_Nacimiento,
+                Cliente c1= new Cliente(c.Id_Cliente, c.Id_Direccion, c.Nombre_Cliente, c.Apellido_Cliente, c.Fecha_Nacimiento_Cliente,
                         c.Correo_Cliente, c.Password_Cliente, c.Telefono_Cliente);
                 clientes.add(c1);
             }
@@ -60,4 +62,32 @@ public class JSON_Methods {
             return 1;
         }
     }
+
+    /*
+    public ArrayList<Class> get(Class clase){
+        ArrayList<> objeto= new ArrayList<Class>();
+
+        return objeto;
+    }*/
+
+    public static <T> ArrayList<T> get(String direccion, Class<T> clase) throws NoSuchMethodException {
+        ArrayList<T> arrayList = new ArrayList<T>();
+        Gson gson= new Gson();
+        BufferedReader br= null;
+        System.out.println(clase.getDeclaredConstructor());
+
+        try {
+            br= new BufferedReader(new FileReader(direccion));
+            Type collectionType = new TypeToken<Collection<T>>(){}.getType();
+            Collection<T> T_Collection = gson.fromJson(br, collectionType);
+            ArrayList<T> arr= new ArrayList<>(T_Collection);
+            arrayList= arr;
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+
+        return arrayList;
+    }
+
+
 }
