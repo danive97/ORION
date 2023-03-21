@@ -19,6 +19,11 @@ public class Http_Controller {
         return jm.get("clientes.json", Cliente.class);
     }
 
+    @GetMapping(value = "/Empleados")
+    public ArrayList<Empleado> mostrar_Empleado() throws NoSuchMethodException {
+        return jm.get("empleados.json", Empleado.class);
+    }
+
     @PostMapping(value = "/Clientes", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Cliente> agregar_Cliente(@RequestBody Cliente cliente) throws IOException {
         //Marvel mm= new Marvel("a", "b", "c", 33);
