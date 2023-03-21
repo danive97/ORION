@@ -25,9 +25,16 @@ public class Http_Controller {
     }
 
     @PostMapping(value = "/Clientes", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Cliente> agregar_Cliente(@RequestBody Cliente cliente) throws IOException {
-        //Marvel mm= new Marvel("a", "b", "c", 33);
-        jm.agregarCliente(cliente, "clientes.json");
+    public ResponseEntity<Cliente> agregar_Cliente(@RequestBody Cliente cliente) throws IOException, NoSuchMethodException {
+        jm.post("clientes.json", Cliente.class, cliente);
         return new ResponseEntity<>(cliente, HttpStatus.ACCEPTED);
     }
+
+    @PostMapping(value = "/Empleados", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Empleado> agregar_Empleado(@RequestBody Empleado empleado) throws IOException, NoSuchMethodException {
+        jm.post("empleados.json", Empleado.class, empleado);
+        return new ResponseEntity<>(empleado, HttpStatus.ACCEPTED);
+    }
+
+
 }
