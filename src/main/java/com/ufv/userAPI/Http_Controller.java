@@ -7,12 +7,14 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 
 @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY, getterVisibility = JsonAutoDetect.Visibility.NONE, setterVisibility = JsonAutoDetect.Visibility.NONE)
 @RestController
 public class Http_Controller {
     JSON_Methods jm= new JSON_Methods();
+    HASH_Method hm= new HASH_Method();
 
     //------------------------------------------------------GET---------------------------------------------------------
     @GetMapping(value = "/Clientes")
@@ -64,13 +66,15 @@ public class Http_Controller {
     //------------------------------------------------------POST--------------------------------------------------------
 
     @PostMapping(value = "/Clientes", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Cliente> agregar_Cliente(@RequestBody Cliente cliente) throws IOException, NoSuchMethodException {
+    public ResponseEntity<Cliente> agregar_Cliente(@RequestBody Cliente cliente) throws IOException, NoSuchMethodException, NoSuchAlgorithmException {
+        cliente.Password_Cliente= hm.hashPassword(cliente.Password_Cliente);
         jm.post("clientes.json", Cliente.class, cliente);
         return new ResponseEntity<>(cliente, HttpStatus.ACCEPTED);
     }
 
     @PostMapping(value = "/Empleados", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Empleado> agregar_Empleado(@RequestBody Empleado empleado) throws IOException, NoSuchMethodException {
+    public ResponseEntity<Empleado> agregar_Empleado(@RequestBody Empleado empleado) throws IOException, NoSuchMethodException, NoSuchAlgorithmException {
+        empleado.Password_Empleado= hm.hashPassword(empleado.Password_Empleado);
         jm.post("empleados.json", Empleado.class, empleado);
         return new ResponseEntity<>(empleado, HttpStatus.ACCEPTED);
     }
