@@ -30,9 +30,35 @@ public class Http_Controller {
         return jm.get("fichajes.json", Fichaje.class);
     }
 
-    @GetMapping(value = "/Pago")
-    public ArrayList<MetodoPagoCliente> mostrar_Pago() throws NoSuchMethodException {
-        return jm.get("pago.json", MetodoPagoCliente.class);
+    @GetMapping(value = "/Pagos")
+    public ArrayList<MetodoPagoCliente> mostrar_Pagos() throws NoSuchMethodException {
+        return jm.get("pagos.json", MetodoPagoCliente.class);
+    }
+    /****/
+
+    @GetMapping(value = "/Productos")
+    public ArrayList<Producto> mostrar_Productos() throws NoSuchMethodException {
+        return jm.get("productos.json", Producto.class);
+    }
+
+    @GetMapping(value = "/Proveedores")
+    public ArrayList<Proveedor> mostrar_Proveedores() throws NoSuchMethodException {
+        return jm.get("proveedores.json", Proveedor.class);
+    }
+
+    @GetMapping(value = "/PedidosProveedor")
+    public ArrayList<PedidoProveedor> mostrar_PedidosProveedor() throws NoSuchMethodException {
+        return jm.get("pedidosProveedor.json", PedidoProveedor.class);
+    }
+
+    @GetMapping(value = "/PedidosCliente")
+    public ArrayList<PedidoCliente> mostrar_PedidosCliente() throws NoSuchMethodException {
+        return jm.get("pedidosCliente.json", PedidoCliente.class);
+    }
+
+    @GetMapping(value = "/Direcciones")
+    public ArrayList<DireccionCliente> mostrar_Direcciones() throws NoSuchMethodException {
+        return jm.get("direccionesCliente.json", DireccionCliente.class);
     }
 
     //------------------------------------------------------POST--------------------------------------------------------
@@ -55,10 +81,40 @@ public class Http_Controller {
         return new ResponseEntity<>(fichaje, HttpStatus.ACCEPTED);
     }
 
-    @PostMapping(value = "/Pago", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<MetodoPagoCliente> agregar_Pago(@RequestBody MetodoPagoCliente pago) throws IOException, NoSuchMethodException {
-        jm.post("pago.json", MetodoPagoCliente.class, pago);
+    @PostMapping(value = "/Pagos", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<MetodoPagoCliente> agregar_Pagos(@RequestBody MetodoPagoCliente pago) throws IOException, NoSuchMethodException {
+        jm.post("pagos.json", MetodoPagoCliente.class, pago);
         return new ResponseEntity<>(pago, HttpStatus.ACCEPTED);
+    }
+
+    @PostMapping(value = "/Productos", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Producto> agregar_Productos(@RequestBody Producto producto) throws IOException, NoSuchMethodException {
+        jm.post("productos.json", Producto.class, producto);
+        return new ResponseEntity<>(producto, HttpStatus.ACCEPTED);
+    }
+
+    @PostMapping(value = "/Proveedores", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Proveedor> agregar_Proveedores(@RequestBody Proveedor proveedor) throws IOException, NoSuchMethodException {
+        jm.post("proveedores.json", Proveedor.class, proveedor);
+        return new ResponseEntity<>(proveedor, HttpStatus.ACCEPTED);
+    }
+
+    @PostMapping(value = "/PedidosProveedor", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<PedidoProveedor> agregar_PedidosProveedor(@RequestBody PedidoProveedor pedidoproveedor) throws IOException, NoSuchMethodException {
+        jm.post("pedidosProveedor.json", PedidoProveedor.class, pedidoproveedor);
+        return new ResponseEntity<>(pedidoproveedor, HttpStatus.ACCEPTED);
+    }
+
+    @PostMapping(value = "/PedidosCliente", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<PedidoCliente> agregar_PedidosProveedor(@RequestBody PedidoCliente pedidocliente) throws IOException, NoSuchMethodException {
+        jm.post("pedidosCliente.json", PedidoCliente.class, pedidocliente);
+        return new ResponseEntity<>(pedidocliente, HttpStatus.ACCEPTED);
+    }
+
+    @PostMapping(value = "/Direcciones", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<DireccionCliente> agregar_Direccion(@RequestBody DireccionCliente direccion) throws IOException, NoSuchMethodException {
+        jm.post("direccionesCliente.json", DireccionCliente.class, direccion);
+        return new ResponseEntity<>(direccion, HttpStatus.ACCEPTED);
     }
 
 
