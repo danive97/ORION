@@ -75,7 +75,6 @@ public class JSON_Methods {
         Gson gson= new Gson();
         BufferedReader br= null;
         System.out.println(clase.getDeclaredConstructor());
-
         try {
             br= new BufferedReader(new FileReader(direccion));
             Type collectionType = new TypeToken<Collection<T>>(){}.getType();
@@ -85,8 +84,31 @@ public class JSON_Methods {
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         }
-
         return arrayList;
+    }
+
+    public static <T> void post(String direccion, Class<T> clase, T object) throws IOException, NoSuchMethodException {
+        File archivo= new File(direccion);
+        ArrayList<T> arrayList = new ArrayList<T>();
+
+        if(!archivo.exists()){
+            arrayList.add(object);
+
+            Gson gson= new Gson();
+            String js= gson.toJson(arrayList);
+            FileWriter fw= new FileWriter(archivo);
+            fw.write(js);
+            fw.close();
+        } else{
+            arrayList= get(direccion, clase);
+            arrayList.add(object);
+
+            Gson gson= new Gson();
+            String js= gson.toJson(arrayList);
+            FileWriter fw= new FileWriter(archivo);
+            fw.write(js);
+            fw.close();
+        }
     }
 
 
